@@ -1,11 +1,11 @@
 {
-  "name": "CodingPhase-StarterKit",
+  "name": "MacroTracker",
   "version": "1.0.0",
-  "description": "Super Cool Framework",
+  "description": "Pulls in macros from your myfitnesspal data",
   "main": "index.js",
-  "author": "joe santos garcia",
+  "author": "Rigo De La Torre",
   "license": "MIT",
-  "homepage": "http://rocky.codingphase.com/",
+  "homepage": "http://rigodlt.com/",
   "dependencies": {
     "axios": "^0.16.1",
     "babel-core": "^6.24.1",

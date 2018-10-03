@@ -6,60 +6,83 @@ import axios from 'axios'
 class Layout extends Component {
   constructor () {
     super()
-    let today = new Date();
-
-    const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-    let date = month[today.getMonth()]+ ' ' + today.getDate()  +', ' +today.getFullYear();
-    let date1 = new Date("6/4/2018");
-    let date2 = new Date(date);
-    let timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     this.state = {
-      date:date,
-      startingWeight:211.6,
-      currentNumberOfDays:diffDays,
-      mystats:'',
+        mystats:'',
+          weightInfo:'',
+      date:'',
+      currentNumberOfDays:'',
+
       row1:'gray',
       row2:'',
       displayColorPicker1: false,
       displayColorPicker2: false,
-      dayTest:date,
-      hide:false
+      hide:false,
+
     }
+
   }
 componentWillMount(){
-
-
     axios.get('/scrape')
     .then((response) => {
       this.setState({
         mystats:response.data
-      }, this.handleChange)
+      },this.handleChange)
     })
+
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    axios.get('/weightInfo')
+    .then((response) => {
+      this.setState({
+        weightInfo:response.data
+      }, this.getWeightStartingPoint)
+    })
+
     .catch(function (error) {
       console.log(error);
     });
 
 }
 
+getWeightStartingPoint(){
+  console.log('did this run')
+  let today = new Date();
+  const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  let date = month[today.getMonth()]+ ' ' + today.getDate()  +', ' +today.getFullYear();
+  let date1 = new Date("6/4/2018");
+  let date2 = new Date(date);
+  let timeDiff = Math.abs(date2.getTime() - date1.getTime());
+  let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
 
+  this.setState({
+    date,
+    currentNumberOfDays:diffDays
+  })
+}
 
+    toggleColorPicker = (e) => {
 
-    toggleColorPicker1 = () => {
-      this.setState({ displayColorPicker1: !this.state.displayColorPicker1 })
+      if(e.target.innerHTML=='Color 1'){
+
+          this.setState({ displayColorPicker1: !this.state.displayColorPicker1 })
+      }else if(e.target.innerHTML=='Color 2'){
+
+          this.setState({ displayColorPicker2: !this.state.displayColorPicker2 })
+      }
     };
-    toggleColorPicker2 = () => {
-      this.setState({ displayColorPicker2: !this.state.displayColorPicker2 })
-    };
-    closeColorPicker1 = () => {
-      this.setState({ displayColorPicker1: false })
-    };
-    closeColorPicker2 = () => {
-      this.setState({ displayColorPicker2: false })
-    };
+
+    closeColorPicker = (e) => {
+      if(e.target.className=='buttonClose1'){
+        this.setState({ displayColorPicker1: false })
+      }else if(e.target.className=='buttonClose2'){
+          this.setState({ displayColorPicker2: false })
+        }
+      }
 
     handleChangeCompleteRow1 = (color) => {
 
@@ -76,45 +99,31 @@ componentWillMount(){
 
 
 handleChange =()=>{
-
-  let fat = parseInt(this.state.mystats.fat);
-  let protein = parseInt(this.state.mystats.protein);
-  let carbs = parseInt(this.state.mystats.carbs);
-  let fiber = parseInt(this.state.mystats.fiber);
-
   let yesterdayWeight = this.yesterdayWeight.value;
   let currentWeight =this.weight.value;
   let workoutOfTheDay=this.workoutOfTheDay.value;
 
-
-
   let weightlossFromYesterday = (yesterdayWeight-currentWeight).toFixed(1);
-  let currentWeightLoss=this.state.startingWeight-currentWeight;
+  let currentWeightLoss=this.state.weightInfo.startingWeight-currentWeight;
   currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
 
 
   //calculation to get net Carbs
-  let netCarbs= parseInt(carbs-fiber);
+  let netCarbs= parseInt(this.state.mystats.carbs-this.state.mystats.fiber);
   //calc to get the total calories for each macro
-  let fatCalories = fat*9;
-  let proteinCalories = protein*4;
-  let carbCalories = netCarbs*4
-
-  //calc to get net total overall calories
+  let fatCalories = parseInt(this.state.mystats.fat)*9;
+  let proteinCalories =  parseInt(this.state.mystats.protein)*4;
+  let carbCalories = parseInt(this.state.mystats.carbs - this.state.mystats.fiber)*4
   let calories = parseInt(fatCalories+proteinCalories+carbCalories)
 
-  //
+  //calc to get the % of each macro
   let fatPercentage = Math.round((fatCalories/calories)*100);
   let proteinPercentage = Math.round((proteinCalories/calories)*100);
   let carbPercentage = Math.round((carbCalories/calories)*100);
 
 
   this.setState({
-  fat,
-  protein,
-  carbs,
   netCarbs,
-  fiber,
   calories,
   fatPercentage,
   proteinPercentage,
@@ -125,22 +134,29 @@ handleChange =()=>{
   weightlossFromYesterday,
   workoutOfTheDay
 
-
   })
 
 }
 
-hideInfo = () =>{
+hideInfo = (e) =>{
+console.log(e.target.value)
+
   this.setState({
-    hide:!this.state.hide
+  {
+    [item]:!this.state.}
   })
 }
-
   render () {
-
-    const popover = {
+    const popoverLeft = {
       position: 'absolute',
       zIndex: '2',
+      left:'0'
+
+    }
+    const popoverRight = {
+      position: 'absolute',
+      zIndex: '2',
+      right:'0'
     }
     const cover = {
       position: 'fixed',
@@ -152,7 +168,17 @@ hideInfo = () =>{
 
     return (
       <div className='home'>
-        <button onClick={ this.hideInfo }>Hide</button>
+        <button value="hide" onClick={this.hideInfo}>Hide</button>
+        <div>
+          <ul>
+            <li>Day</li>
+            <li>Weight</li>
+            <li>Overall Weight Loss</li>
+            <li>WeightLoss From Yesterday</li>
+            <li>Date</li>
+            <li>Workout</li>
+          </ul>
+        </div>
         <section className="info" style ={this.state.hide ? {visibility:'hidden'} : {visibility:'visible'}}>
         <div className ="inputGroup">
                     <label>Workout: </label>
@@ -163,7 +189,6 @@ hideInfo = () =>{
                       <option value="Jog">Jog</option>
                       <option value="Rest">Rest</option>
                     </select>
-
           </div>
           <div className ="inputGroup">
             <label>Yest. Weight: </label>
@@ -179,9 +204,10 @@ hideInfo = () =>{
         </section>
         <div className="nav-section" style ={this.state.hide ? {visibility:'hidden'} : {visibility:'visible'}}>
             <div className="group">
-               <button onClick={ this.toggleColorPicker1 }>Color 1</button>
-               { this.state.displayColorPicker1 ? <div style={ popover }>
-                 <div style={ cover } onClick={ this.closeColorPicker1 }/>
+               <button onClick={this.toggleColorPicker}>Color 1</button>
+               { this.state.displayColorPicker1 ? <div  style={ popoverLeft }>
+                 <div style={ cover } className="buttonClose1"
+                 onClick={ this.closeColorPicker }/>
                  <SketchPicker
                   color={ this.state.row1 }
                   onChangeComplete={ this.handleChangeCompleteRow1 }
@@ -189,9 +215,9 @@ hideInfo = () =>{
                </div> : null }
              </div>
              <div className="group">
-                <button onClick={ this.toggleColorPicker2 }>Color 2</button>
-                { this.state.displayColorPicker2 ? <div style={ popover }>
-                  <div style={ cover } onClick={ this.closeColorPicker2 }/>
+                <button onClick={ this.toggleColorPicker }>Color 2</button>
+                { this.state.displayColorPicker2 ? <div style={ popoverRight }>
+                  <div style={ cover } className="buttonClose2" onClick={ this.closeColorPicker }/>
                   <SketchPicker
                    color={ this.state.row2 }
                    onChangeComplete={ this.handleChangeCompleteRow2 }
@@ -213,7 +239,7 @@ hideInfo = () =>{
             </div>
               <h1 className="workout">Workout:<span className="workout-detail"> {this.state.workoutOfTheDay}</span></h1>
             <div className="stats">
-              <h1 style={{background:this.state.row1}}>Calories:<span className="category"> {this.state.mystats.calories}</span></h1>
+              <h1 style={{background:this.state.row1}}>Calories:<span className="category"> {this.state.calories}</span></h1>
               <h1 style={{background:this.state.row2}}>Fat:<span className="category"> {this.state.mystats.fat}g /</span> <span className="percentage"> {this.state.fatPercentage} %</span></h1>
               <h1 style={{background:this.state.row1}}>Protein:<span className="category"> {this.state.mystats.protein}g /</span> <span className="percentage"> {this.state.proteinPercentage} %</span></h1>
               <h1 style={{background:this.state.row2}}>Net Carbs:<span className="category"> {this.state.netCarbs}g / </span> <span className="percentage">{this.state.carbPercentage} %</span></h1>

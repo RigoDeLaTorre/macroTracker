@@ -7,9 +7,10 @@ body {
 }
 
 .home {
-  // max-width:450px;
-  // max-height:600px;
   margin: 0 auto;
+  max-width: 500px;
+border: 1px solid #d8cdcd;
+height: 100vh;
 
   .info{
     display: flex;
