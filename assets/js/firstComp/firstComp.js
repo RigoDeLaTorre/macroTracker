@@ -132,19 +132,27 @@ handleChange =()=>{
   currentWeightLoss,
   yesterdayWeight,
   weightlossFromYesterday,
-  workoutOfTheDay
-
+  workoutOfTheDay,
+  currentNumberOfDaysChecked:true,
+  currentWeightChecked:true,
+overallWeightLossChecked:true,
+weightlossFromYestChecked:true,
+currentDateChecked:true,
+workoutChecked:true,
+checked:true
   })
 
 }
 
 hideInfo = (e) =>{
 console.log(e.target.value)
+let name = e.target.name
+let value = e.target.checked
 
-  this.setState({
-  {
-    [item]:!this.state.}
-  })
+this.setState({
+  [name]:value
+})
+
 }
   render () {
     const popoverLeft = {
@@ -166,17 +174,18 @@ console.log(e.target.value)
       left: '0px',
     }
 
+
     return (
       <div className='home'>
-        <button value="hide" onClick={this.hideInfo}>Hide</button>
         <div>
           <ul>
-            <li>Day</li>
-            <li>Weight</li>
-            <li>Overall Weight Loss</li>
-            <li>WeightLoss From Yesterday</li>
-            <li>Date</li>
-            <li>Workout</li>
+          <input type="checkbox" name="hide" value="hide" checked={this.state.hide} onChange={this.hideInfo}/>Hide Inputs<br />
+          <input type="checkbox" name="currentNumberOfDaysChecked" value="currentNumberOfDaysChecked" checked={this.state.currentNumberOfDaysChecked} onChange={this.hideInfo}/>Day<br />
+          <input type="checkbox" name="currentWeightChecked" value="currentWeightChecked" checked={this.state.currentWeightChecked} onChange={this.hideInfo} />Current Weight<br />
+          <input type="checkbox" name="overallWeightLossChecked" value="overallWeightLossChecked" checked={this.state.overallWeightLossChecked} onChange={this.hideInfo}/>Overall Weight Loss<br />
+          <input type="checkbox" name="weightlossFromYestChecked" value="weightlossFromYestChecked" checked={this.state.weightlossFromYestChecked} onChange={this.hideInfo}/>WeightLoss From Yesterday<br />
+          <input type="checkbox" name="currentDateChecked" value="currentDateChecked" checked={this.state.currentDateChecked} onChange={this.hideInfo}/>Date<br />
+          <input type="checkbox" name="workoutChecked" value="workoutChecked" checked={this.state.workoutChecked} onChange={this.hideInfo}/>Workout<br />
           </ul>
         </div>
         <section className="info" style ={this.state.hide ? {visibility:'hidden'} : {visibility:'visible'}}>
@@ -226,18 +235,20 @@ console.log(e.target.value)
               </div>
         </div>
 
-
           <div className="results">
             <div className="top-header">
-              <h1>Day {this.state.currentNumberOfDays} - Weight:{this.state.currentWeight}<span> (-{this.state.currentWeightLoss} lb)</span></h1>
-              <h3>
-              <span className={`{dailyWeight: ${this.state.weightlossFromYesterday>0 ? 'dailyDown' : 'dailyUp'}`}> ({this.state.weightlossFromYesterday>0 ? '-' : ''}</span>
-              {(Math.sign(this.state.weightlossFromYesterday) == -1? '+': '' )}
-               {Math.abs(this.state.weightlossFromYesterday)} lb) from yesterday
-               </h3>
-              <h3>{this.state.date}</h3>
+              <div className ="group-daily">
+                <h1 style ={this.state.currentNumberOfDaysChecked ? {display:'block'} : {display:'none'}}>Day {this.state.currentNumberOfDays} - </h1>
+                <h1 style ={this.state.currentWeightChecked ? {display:'block'} : {display:'none'}}>Weight:{this.state.currentWeight} </h1>
+                <h1 style ={this.state.overallWeightLossChecked ? {display:'block'} : {display:'none'}}><span> (-{this.state.currentWeightLoss} lb)</span></h1>
+              </div>
+              <div className ="group-daily" style ={this.state.weightlossFromYestChecked ? {display:'block'} : {display:'none'}}>
+                  <span className={`dailyWeight: ${this.state.weightlossFromYesterday} > 0 ? 'dailyDown' : 'dailyUp'`}>
+                   ({this.state.weightlossFromYesterday>0 ? '-' : ''}{(Math.sign(this.state.weightlossFromYesterday) == -1? '+': '' )} {Math.abs(this.state.weightlossFromYesterday)} lb) from yesterday</span>
+              </div>
+              <h3 style ={this.state.currentDateChecked ? {display:'block'} : {display:'none'}}>{this.state.date}</h3>
             </div>
-              <h1 className="workout">Workout:<span className="workout-detail"> {this.state.workoutOfTheDay}</span></h1>
+              <h1 className="workout"  style ={this.state.workoutChecked ? {display:'block'} : {display:'none'}}>Workout:<span className="workout-detail"> {this.state.workoutOfTheDay}</span></h1>
             <div className="stats">
               <h1 style={{background:this.state.row1}}>Calories:<span className="category"> {this.state.calories}</span></h1>
               <h1 style={{background:this.state.row2}}>Fat:<span className="category"> {this.state.mystats.fat}g /</span> <span className="percentage"> {this.state.fatPercentage} %</span></h1>
