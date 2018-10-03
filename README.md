@@ -26,3 +26,4 @@ On the root of this project run on your terminal (if you want you can do this wi
 **Start the server**
 
   npm run watch
+	node server.js to run the server 

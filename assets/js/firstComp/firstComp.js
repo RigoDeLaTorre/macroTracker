@@ -179,7 +179,7 @@ this.setState({
       <div className='home'>
         <div>
           <ul>
-          <input type="checkbox" name="hide" value="hide" checked={this.state.hide} onChange={this.hideInfo}/>Hide Inputs<br />
+          <input type="checkbox" name="hide" value="hide" checked={this.state.hide} onChange={this.hideInfo}/>Hide Inputs for screenshot<br />
           <input type="checkbox" name="currentNumberOfDaysChecked" value="currentNumberOfDaysChecked" checked={this.state.currentNumberOfDaysChecked} onChange={this.hideInfo}/>Day<br />
           <input type="checkbox" name="currentWeightChecked" value="currentWeightChecked" checked={this.state.currentWeightChecked} onChange={this.hideInfo} />Current Weight<br />
           <input type="checkbox" name="overallWeightLossChecked" value="overallWeightLossChecked" checked={this.state.overallWeightLossChecked} onChange={this.hideInfo}/>Overall Weight Loss<br />

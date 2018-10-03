@@ -210,7 +210,7 @@ var Layout = function (_Component) {
             'ul',
             null,
             _react2.default.createElement('input', { type: 'checkbox', name: 'hide', value: 'hide', checked: this.state.hide, onChange: this.hideInfo }),
-            'Hide Inputs',
+            'Hide Inputs for screenshot',
             _react2.default.createElement('br', null),
             _react2.default.createElement('input', { type: 'checkbox', name: 'currentNumberOfDaysChecked', value: 'currentNumberOfDaysChecked', checked: this.state.currentNumberOfDaysChecked, onChange: this.hideInfo }),
             'Day',
