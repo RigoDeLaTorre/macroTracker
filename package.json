@@ -49,7 +49,6 @@
     "sass": "gulp styles",
     "js": "gulp webpack",
     "start": "node server.js",
-    "heroku-postbuild": "cd assets && npm install && npm run build",
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
