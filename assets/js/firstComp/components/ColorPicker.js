@@ -10,7 +10,7 @@ export default class ColorPicker extends Component {
     this.state = {
       displayColorPicker1: false,
       displayColorPicker2: false,
-    
+
     }
 
   }
@@ -68,7 +68,7 @@ export default class ColorPicker extends Component {
                onClick={ this.closeColorPicker }/>
                <SketchPicker
                    color={this.props.globalState.row1}
-                onChangeComplete={ this.handleChangeCompleteRow1 }/>
+                   onChangeComplete={ this.handleChangeCompleteRow1 }/>
              </div> : null }
            </div>
            <div className="group">
@@ -76,8 +76,8 @@ export default class ColorPicker extends Component {
               { this.state.displayColorPicker2 ? <div style={ popoverRight }>
                 <div style={ cover } className="buttonClose2" onClick={ this.closeColorPicker }/>
                 <SketchPicker
-                color={this.props.globalState.row2}
-                 onChangeComplete={ this.handleChangeCompleteRow2 }
+                   color={this.props.globalState.row2}
+                   onChangeComplete={ this.handleChangeCompleteRow2 }
                />
               </div> : null }
             </div>

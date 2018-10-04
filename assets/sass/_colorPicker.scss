@@ -3,8 +3,10 @@
   display:flex;
   justify-content: center;
   margin-top:1rem;
+  position:relative;
   .group{
     margin:0 5px;
+
     button{
       background: #0b789f;
     color: white;

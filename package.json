@@ -47,7 +47,9 @@
     "production": "./node_modules/.bin/webpack -p",
     "watch": "gulp",
     "sass": "gulp styles",
-    "js": "gulp webpack"
+    "js": "gulp webpack",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

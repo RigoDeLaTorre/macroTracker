@@ -41,17 +41,23 @@ var Navigation = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this));
 
     _this.handleUser = function () {
-      var currentWeight = _this.weight.value;
+      var currentWeight = parseFloat(_this.weight.value);
       var workoutOfTheDay = _this.workoutOfTheDay.value;
       var username = _this.username.value;
+
       _this.props.handleUser(currentWeight, workoutOfTheDay, username);
     };
 
     _this.toggleNav = function () {
-      console.log(_this.state.nav);
       _this.setState({
         nav: !_this.state.nav
       });
+    };
+
+    _this.submit = function (e) {
+      if (e.key == 'Enter' || e.which == 13) {
+        _this.props.getApiData();
+      }
     };
 
     _this.state = {
@@ -60,12 +66,13 @@ var Navigation = function (_Component) {
     return _this;
   }
 
-  //   handleChange = () => {
-  //   let currentWeight = this.weight.value;
-  //   let workoutOfTheDay = this.workoutOfTheDay.value;
-  //     let username = this.username.value;
-  //   this.props.handleChange(currentWeight, workoutOfTheDay, username)
-  // }
+  //Gets the value inputted on the form whenever it is changed and passes that value to the parent index.js which updates the state.
+
+
+  //Toggles the Navigation either on or off
+
+
+  // Submit button that triggers api call on Enter key.
 
 
   _createClass(Navigation, [{
@@ -78,28 +85,55 @@ var Navigation = function (_Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'nav-button', onClick: this.props.getApiData },
-          'Get My Stats'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'nav-button', onClick: this.toggleNav },
-          _react2.default.createElement('img', { src: './img/menu.svg' })
+          { className: 'nav-container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'nav-button', onClick: this.toggleNav },
+            _react2.default.createElement('img', { src: './img/menu.svg' }),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Get Macros'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'nav-button' },
+            _react2.default.createElement(
+              'a',
+              { href: '/instructions.html' },
+              _react2.default.createElement('img', { src: './img/settings.svg' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                'Setup First !'
+              )
+            )
+          )
         ),
         _react2.default.createElement(
           'section',
           { className: this.state.nav == true ? 'nav-show' : 'nav-section' },
           _react2.default.createElement(
             'div',
-            { className: 'group-inputs' },
+            { className: 'group-inputs userinfo' },
             _react2.default.createElement(
-              'label',
-              null,
-              'UserName:'
+              'div',
+              { className: 'usergroup' },
+              _react2.default.createElement(
+                'label',
+                null,
+                'UserName:'
+              ),
+              _react2.default.createElement('input', { type: 'text', placeholder: 'enter username', name: 'weight', ref: function ref(input) {
+                  return _this2.username = input;
+                }, onChange: this.handleUser, onKeyPress: this.submit })
             ),
-            _react2.default.createElement('input', { type: 'text', name: 'weight', ref: function ref(input) {
-                return _this2.username = input;
-              }, onChange: this.handleUser })
+            _react2.default.createElement(
+              'div',
+              { className: 'submit-button', onClick: this.props.getApiData },
+              _react2.default.createElement('img', { src: './img/enter.svg', alt: 'get personal stats button' })
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -151,6 +185,11 @@ var Navigation = function (_Component) {
                   'option',
                   { value: 'Rest' },
                   'Rest'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'nodisplay' },
+                  'Do Not Display'
                 )
               )
             ),
@@ -225,27 +264,28 @@ var Results = function Results(_ref) {
           "h1",
           null,
           "Day ",
-          globalState.currentNumberOfDays,
-          " - "
+          globalState.currentNumberOfDays
         ),
         _react2.default.createElement(
           "h1",
-          null,
-          "Weight:",
+          { style: globalState.currentWeight == null || globalState.currentWeight == 0 ? { display: 'none' } : { display: 'block' } },
+          " - Weight:",
           globalState.currentWeight,
           " "
         ),
         _react2.default.createElement(
           "h1",
-          null,
-          "(-",
+          { style: globalState.currentWeight == null || globalState.currentWeight == 0 ? { display: 'none' } : { display: 'block' } },
+          "(",
+          globalState.currentWeight > globalState.weightInfo.startingWeight ? '+' : '',
+          " ",
           globalState.currentWeightLoss,
-          " lb)"
+          " lb )"
         )
       ),
       _react2.default.createElement(
         "div",
-        { className: "group-daily line-3" },
+        { className: "group-daily line-3", style: globalState.workoutOfTheDay == 'nodisplay' || globalState.workoutOfTheDay == null ? { display: 'none' } : { display: 'block' } },
         _react2.default.createElement(
           "h1",
           { className: "workout" },
@@ -543,7 +583,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import InputData from './components/InputData.js'
+// import Instructions from './components/Instructions.js'
 
 
 var Layout = function (_Component) {
@@ -555,9 +595,10 @@ var Layout = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
     _this.getApiData = function () {
+      var username = _this.state.username;
       _axios2.default.get('/scrape', {
         params: {
-          user: _this.state.username
+          username: username
         }
       }).then(function (response) {
         _this.setState({
@@ -567,7 +608,11 @@ var Layout = function (_Component) {
         console.log(error);
       });
 
-      _axios2.default.get('/weightInfo').then(function (response) {
+      _axios2.default.get('/weightInfo', {
+        params: {
+          username: username
+        }
+      }).then(function (response) {
         _this.setState({
           weightInfo: response.data
         }, _this.getWeightStartingPoint);
@@ -602,7 +647,7 @@ var Layout = function (_Component) {
     };
 
     _this.handleUser = function (currentWeight, workoutOfTheDay, username) {
-      var currentWeightLoss = _this.state.weightInfo.startingWeight - currentWeight;
+      var currentWeightLoss = currentWeight - _this.state.weightInfo.startingWeight;
       currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
 
       _this.setState({

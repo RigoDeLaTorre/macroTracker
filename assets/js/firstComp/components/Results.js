@@ -10,13 +10,12 @@ return(
        <h3>{globalState.date}</h3>
     </div>
       <div className ="group-daily line-2">
-        <h1>Day {globalState.currentNumberOfDays} - </h1>
-        <h1>Weight:{globalState.currentWeight} </h1>
-        <h1>(-{globalState.currentWeightLoss} lb)</h1>
+        <h1>Day {globalState.currentNumberOfDays}</h1>
+        <h1 style ={(globalState.currentWeight==null || globalState.currentWeight == 0) ? {display:'none'} : {display:'block'}}> - Weight:{globalState.currentWeight} </h1>
+        <h1 style ={(globalState.currentWeight==null || globalState.currentWeight == 0) ? {display:'none'} : {display:'block'}}>
+        ({globalState.currentWeight > globalState.weightInfo.startingWeight ? '+' : ''} {globalState.currentWeightLoss} lb )</h1>
       </div>
-
-
-      <div className ="group-daily line-3">
+      <div className ="group-daily line-3" style ={globalState.workoutOfTheDay =='nodisplay' || globalState.workoutOfTheDay == null ? {display:'none'} : {display:'block'}}>
       <h1 className="workout">Workout<span className="workout-detail">: {globalState.workoutOfTheDay}</span></h1>
     </div>
     </div>

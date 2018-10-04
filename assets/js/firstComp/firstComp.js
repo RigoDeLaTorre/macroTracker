@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Navigation from './components/Nav.js'
 import Results from './components/Results.js'
-// import InputData from './components/InputData.js'
+// import Instructions from './components/Instructions.js'
 
 
 
@@ -26,9 +26,10 @@ class Layout extends Component {
 
   // 2 api calls, get macros and get start weight and date
 getApiData = () =>{
+   let username=this.state.username
     axios.get('/scrape', {
       params:{
-        user:this.state.username
+        username
       }
     })
     .then((response) => {
@@ -41,7 +42,11 @@ getApiData = () =>{
       console.log(error);
     });
 
-    axios.get('/weightInfo')
+    axios.get('/weightInfo', {
+      params:{
+        username
+      }
+    })
     .then((response) => {
       this.setState({
         weightInfo:response.data
@@ -99,7 +104,7 @@ handleChange =(currentWeight, workoutOfTheDay, username)=>{
 }
 
 handleUser =(currentWeight, workoutOfTheDay, username)=>{
-  let currentWeightLoss=this.state.weightInfo.startingWeight-currentWeight;
+  let currentWeightLoss= currentWeight- this.state.weightInfo.startingWeight;
   currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
 
   this.setState({

@@ -5,20 +5,18 @@ var cheerio = require('cheerio');
 var app = express();
 
 app.get('/scrape', function(req, res) {
-  let username=req.query.user
+  let username=req.query.username
 
   getDailyStats =() =>{
-
     url = `https://www.myfitnesspal.com/food/diary/${username}/`;
+
     request(url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
-             var json = { calories : "", carbs : "", fat : "", protein:"", fiber:""};
+            var json = { calories : "", carbs : "", fat : "", protein:"", fiber:""};
 
          $('#diary-table').filter(function(){
             var data = $(this);
-
-            var selectedLis = $('ul').children('li[data-brandId]');
 
             calories = data.children('tbody').children('.total').first().children().eq(1).text();
             carbs = data.children('tbody').children('.total').first().children().eq(2).children('.macro-value').text();
@@ -39,22 +37,22 @@ app.get('/scrape', function(req, res) {
      // Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
      // Parameter 3 :  callback function - a callback function to let us know the status of our function
 
-    fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
-        console.log('File successfully written! - Check your project directory for the output.json file');
-    })
+    // fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
+    //     console.log('File successfully written! - Check your project directory for the output.json file');
+    // })
 
      // Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
     res.send(json);
         }) ;
   }
-  // getDailyStats();
   getDailyStats();
 
 })
 
 app.get('/weightInfo', function(req, res) {
-  getWeightInfo = () => {
-    url = 'https://www.myfitnesspal.com/profile/rigodlt';
+    let username=req.query.username
+    getWeightInfo = () => {
+    url = `https://www.myfitnesspal.com/profile/${username}`;
     request(url, function(error, response, html) {
       if (!error) {
         var $ = cheerio.load(html);
@@ -65,11 +63,12 @@ app.get('/weightInfo', function(req, res) {
 
         $('#profile-block').filter(function() {
           var data = $(this);
+          //get Starting Weight
           startingWeight = data.children('.col-1').children('p').first().text();
           var n = startingWeight.indexOf(':');
           var lb = startingWeight.indexOf('lb');
           startingWeight = parseFloat(startingWeight.substring(n+1,lb).trim());
-
+          //get Starting Date
           startingDate = data.children('.col-1').children('p').first().text();
           var y = startingDate.indexOf('te:');
           startingDate = startingDate.substring(y+3).trim();
@@ -86,11 +85,11 @@ app.get('/weightInfo', function(req, res) {
       // Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
       // Parameter 3 :  callback function - a callback function to let us know the status of our function
 
-      fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err) {
-
-        console.log('File successfully written! - Check your project directory for the output.json file');
-
-      })
+      // fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err) {
+      //
+      //   console.log('File successfully written! - Check your project directory for the output.json file');
+      //
+      // })
 
       // Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
       res.send(json);
