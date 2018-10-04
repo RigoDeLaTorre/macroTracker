@@ -48,8 +48,9 @@
     "watch": "gulp",
     "sass": "gulp styles",
     "js": "gulp webpack",
-    "start": "node index.js"
-  },
+    "start": "node index.js",
+     "heroku-postbuild": "npm run watch"
+   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1"
