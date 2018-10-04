@@ -48,7 +48,7 @@
     "watch": "gulp",
     "sass": "gulp styles",
     "js": "gulp webpack",
-    "start": "node index.js",
+    "start": "node server.js",
      "heroku-postbuild": "npm install && npm run production"
    },
   "devDependencies": {
