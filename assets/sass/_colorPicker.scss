@@ -1,0 +1,19 @@
+
+.color-picker{
+  display:flex;
+  justify-content: center;
+  margin-top:1rem;
+  .group{
+    margin:0 5px;
+    button{
+      background: #0b789f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: .7rem;
+    font-weight: 100;
+    text-transform: lowercase;
+    }
+  }
+}
