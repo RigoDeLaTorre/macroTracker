@@ -1,4 +1,5 @@
 var express = require('express');
+const path = require('path');
 var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
@@ -6,7 +7,7 @@ var app = express();
 
 var port = process.env.PORT || 5000;
 // make express look in the public directory for assets (css/js/img)
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/scrape', function(req, res) {
   let username=req.query.username
