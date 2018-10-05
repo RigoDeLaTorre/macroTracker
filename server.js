@@ -103,7 +103,7 @@ app.get('/weightInfo', function(req, res) {
   }
     getWeightInfo();
   })
-app.use(express.static(path.rsolve(__direname, 'public')));
+app.use(express.static(path.resolve(__direname, 'public')));
   app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname+'public', 'index.html'));
 });
