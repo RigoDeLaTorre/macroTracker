@@ -3,9 +3,10 @@ const path = require('path');
 var request = require('request');
 var cheerio = require('cheerio');
 
+const PORT = process.env.PORT || 5000
 var app = express();
 
-app.use(express.static(__dirname+'public/js/components'));
+app.use(express.static(__dirname+'public'));
 app.get('/scrape', function(req, res) {
     let username=req.query.username
     url = `https://www.myfitnesspal.com/food/diary/${username}`
@@ -73,6 +74,4 @@ app.get('/weightInfo', function(req, res) {
     res.sendFile(path.resolve(__dirname, 'index.html'));
   });
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000')
-})
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
