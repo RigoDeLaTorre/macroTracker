@@ -57,10 +57,6 @@
   },
   "engines": {
     "node": "8.11.4"
-<<<<<<< HEAD
-  }
-=======
-  },
-  "proxy": "http://localhost:5000"
->>>>>>> fe5a2c8acf11b0d625479c89954bb5b83a2cc2dc
+},
+  "proxy": "http://localhost:5000",
 }
