@@ -7,7 +7,7 @@ var app = express();
 
 var port = process.env.PORT || 5000;
 // make express look in the public directory for assets (css/js/img)
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/scrape', function(req, res) {
   let username=req.query.username
@@ -103,9 +103,9 @@ app.get('/weightInfo', function(req, res) {
   }
     getWeightInfo();
   })
-app.use(express.static(path.join(__dirname, 'public')));
+
   app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,'public', 'index.html'));
+  res.sendFile(path.join(__dirname,'public/index.html'));
 });
 app.listen(5000, () => {
   console.log('Server is running on port 5000')
