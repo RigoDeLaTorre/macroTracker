@@ -4,7 +4,6 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 var app = express();
-const port = process.env.PORT || 5000;
 
 app.use(express.static(__dirname+'public/js/components'));
 app.get('/scrape', function(req, res) {
