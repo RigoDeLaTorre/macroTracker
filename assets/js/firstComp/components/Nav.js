@@ -14,11 +14,11 @@ export default class Navigation extends Component {
 
   //Gets the value inputted on the form whenever it is changed and passes that value to the parent index.js which updates the state.
   handleUser = () => {
-    let currentWeight = parseFloat(this.weight.value);
+    // let currentWeight = parseFloat(this.weight.value);
     let workoutOfTheDay = this.workoutOfTheDay.value;
     let username = this.username.value;
 
-    this.props.handleUser(currentWeight, workoutOfTheDay, username)
+    this.props.handleUser(workoutOfTheDay, username)
 }
 
 //Toggles the Navigation either on or off
@@ -71,10 +71,11 @@ export default class Navigation extends Component {
               <option value="nodisplay">Do Not Display</option>
             </select>
           </div>
-          <div className="group-inputs">
+        {/*  <div className="group-inputs">
             <label>Weight:</label>
             <input type="number" name="weight" ref={input => this.weight = input} onChange={this.handleUser}/>
           </div>
+          */}
         </div>
         <div className="colorContainer">
           <ColorPicker handleChangeCompleteRow1={this.props.handleChangeCompleteRow1} handleChangeCompleteRow2={this.props.handleChangeCompleteRow2} globalState={this.props.globalState}/>

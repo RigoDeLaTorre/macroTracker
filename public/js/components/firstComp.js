@@ -41,11 +41,11 @@ var Navigation = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this));
 
     _this.handleUser = function () {
-      var currentWeight = parseFloat(_this.weight.value);
+      // let currentWeight = parseFloat(this.weight.value);
       var workoutOfTheDay = _this.workoutOfTheDay.value;
       var username = _this.username.value;
 
-      _this.props.handleUser(currentWeight, workoutOfTheDay, username);
+      _this.props.handleUser(workoutOfTheDay, username);
     };
 
     _this.toggleNav = function () {
@@ -192,18 +192,6 @@ var Navigation = function (_Component) {
                   'Do Not Display'
                 )
               )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'group-inputs' },
-              _react2.default.createElement(
-                'label',
-                null,
-                'Weight:'
-              ),
-              _react2.default.createElement('input', { type: 'number', name: 'weight', ref: function ref(input) {
-                  return _this2.weight = input;
-                }, onChange: this.handleUser })
             )
           ),
           _react2.default.createElement(
@@ -259,33 +247,7 @@ var Results = function Results(_ref) {
       ),
       _react2.default.createElement(
         "div",
-        { className: "group-daily line-2" },
-        _react2.default.createElement(
-          "h1",
-          null,
-          "Day ",
-          globalState.currentNumberOfDays
-        ),
-        _react2.default.createElement(
-          "h1",
-          { style: globalState.currentWeight == null || globalState.currentWeight == 0 ? { display: 'none' } : { display: 'block' } },
-          " - Weight:",
-          globalState.currentWeight,
-          " "
-        ),
-        _react2.default.createElement(
-          "h1",
-          { style: globalState.currentWeight == null || globalState.currentWeight == 0 ? { display: 'none' } : { display: 'block' } },
-          "(",
-          globalState.currentWeight > globalState.weightInfo.startingWeight ? '+' : '',
-          " ",
-          globalState.currentWeightLoss,
-          " lb )"
-        )
-      ),
-      _react2.default.createElement(
-        "div",
-        { className: "group-daily line-3", style: globalState.workoutOfTheDay == 'nodisplay' || globalState.workoutOfTheDay == null ? { display: 'none' } : { display: 'block' } },
+        { className: "group-daily line-2", style: globalState.workoutOfTheDay == 'nodisplay' || globalState.workoutOfTheDay == null ? { display: 'none' } : { display: 'block' } },
         _react2.default.createElement(
           "h1",
           { className: "workout" },
@@ -621,9 +583,8 @@ var Layout = function (_Component) {
       });
     };
 
-    _this.handleChange = function (currentWeight, workoutOfTheDay, username) {
-      var currentWeightLoss = _this.state.weightInfo.startingWeight - currentWeight;
-      currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
+    _this.handleChange = function (workoutOfTheDay, username) {
+
       //calculation to get net Carbs
       var netCarbs = parseInt(_this.state.mystats.carbs - _this.state.mystats.fiber);
       //calc to get the total calories for each macro
@@ -646,16 +607,11 @@ var Layout = function (_Component) {
       });
     };
 
-    _this.handleUser = function (currentWeight, workoutOfTheDay, username) {
-      var currentWeightLoss = currentWeight - _this.state.weightInfo.startingWeight;
-      currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
+    _this.handleUser = function (workoutOfTheDay, username) {
 
       _this.setState({
-        currentWeight: currentWeight,
-        currentWeightLoss: currentWeightLoss,
         workoutOfTheDay: workoutOfTheDay,
         username: username
-
       });
     };
 
@@ -681,9 +637,7 @@ var Layout = function (_Component) {
 
     _this.state = {
       mystats: '',
-      weightInfo: '',
       date: '',
-      currentNumberOfDays: '',
       row1: '#cbc7c7',
       row2: '',
       username: ''
@@ -701,24 +655,17 @@ var Layout = function (_Component) {
 
     //Displays how many days into the diet as well as the Current Date
     value: function getWeightStartingPoint() {
-      console.log('did this run');
       var today = new Date();
       var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
       var date = month[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear();
-      var date1 = new Date("6/5/2018");
-      var date2 = new Date(date);
-      var timeDiff = Math.abs(date2.getTime() - date1.getTime() + 1);
-      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
       this.setState({
-        date: date,
-        currentNumberOfDays: diffDays
+        date: date
       });
     }
 
     // Gets the values of the inputs for daily weight, yesterdays weight, and workout of the day
-
 
     //After a color is selected, state is updated with the hex color #
 

@@ -13,9 +13,7 @@ class Layout extends Component {
 
     this.state = {
       mystats:'',
-      weightInfo:'',
       date:'',
-      currentNumberOfDays:'',
       row1:'#cbc7c7',
       row2:'',
       username:''
@@ -60,27 +58,21 @@ getApiData = () =>{
 }
 //Displays how many days into the diet as well as the Current Date
 getWeightStartingPoint(){
-  console.log('did this run')
   let today = new Date();
   const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
   let date = month[today.getMonth()]+ ' ' + today.getDate()  +', ' +today.getFullYear();
-  let date1 = new Date("6/5/2018");
-  let date2 = new Date(date);
-  let timeDiff = Math.abs(date2.getTime() - date1.getTime() +1);
-  let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
   this.setState({
     date,
-    currentNumberOfDays:diffDays
   })
 }
 
 
 // Gets the values of the inputs for daily weight, yesterdays weight, and workout of the day
-handleChange =(currentWeight, workoutOfTheDay, username)=>{
-  let currentWeightLoss=this.state.weightInfo.startingWeight-currentWeight;
-  currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
+
+handleChange =(workoutOfTheDay, username)=>{
+
   //calculation to get net Carbs
   let netCarbs= parseInt(this.state.mystats.carbs-this.state.mystats.fiber);
   //calc to get the total calories for each macro
@@ -103,16 +95,12 @@ handleChange =(currentWeight, workoutOfTheDay, username)=>{
 })
 }
 
-handleUser =(currentWeight, workoutOfTheDay, username)=>{
-  let currentWeightLoss= currentWeight- this.state.weightInfo.startingWeight;
-  currentWeightLoss = parseFloat(Math.round(currentWeightLoss * 100) / 100).toFixed(1);
+handleUser =(workoutOfTheDay, username)=>{
+
 
   this.setState({
-  currentWeight,
-  currentWeightLoss,
   workoutOfTheDay,
   username
-
 })
 }
 
