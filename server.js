@@ -6,7 +6,7 @@ var cheerio = require('cheerio');
 var app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, 'public/js')));
+app.use(express.static(__dirname+'public/js/components'));
 app.get('/scrape', function(req, res) {
     let username=req.query.username
     url = `https://www.myfitnesspal.com/food/diary/${username}`
@@ -70,9 +70,10 @@ app.get('/weightInfo', function(req, res) {
 
   })
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'public/index.html'));
-});
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
+  });
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000')
 })
