@@ -6,16 +6,23 @@
   position:relative;
   .group{
     margin:0 5px;
+    box-shadow: 3px 2px 32px -8px rgba(0,0,0,0.75);
 
     button{
-      background: #0b789f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: .7rem;
-    font-weight: 100;
-    text-transform: lowercase;
-    }
+      background: #2a5d3e;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: .8;
+      font-weight: 300;
+      text-transform: capitalize;
+      letter-spacing: .5px;
+      cursor:pointer;
+      &:hover{
+        background:#2c7549;
+        font-weight:500;
+      }
   }
+}
 }

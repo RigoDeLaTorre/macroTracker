@@ -1,0 +1,95 @@
+#usersearch{
+  .group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin-bottom:5rem;
+      .input-group{
+        padding:20px;
+        label {
+          letter-spacing: 1px;
+          font-size: 0.7rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          padding-bottom: 5px;
+          margin-right:10px;
+
+        }
+
+        input{
+          font-size:16px;
+          border: none;
+          border-bottom: 1px solid $green;
+          padding:5px;
+          text-align: center;
+
+        }
+
+      }
+      .submit-button{
+        cursor:pointer;
+        width:30px;
+
+        img{
+          width:100%;
+        }
+      }
+
+  }
+  .results {
+    font-size: 20px;
+
+    .top-section {
+      margin-top:2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      .group-daily{
+        display:flex;
+        flex-direction:row;
+        justify-content: center;
+        &.line-1{
+          h3 {
+          font-size: 1.4rem;
+          font-weight: 500;
+          margin-bottom: 1rem;
+          }
+        }
+        &.line-2{
+          h1{
+            font-weight:400;
+          }
+        }
+      }
+    }
+    .workout {
+      color: black;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 400;
+
+      .workout-detail {
+        font-weight: 300;
+      }
+    }
+
+    .stats {
+      h1 {
+        padding: 10px;
+        font-weight: 400;
+        padding-left: 50px;
+
+        .category {
+          font-weight: 300;
+        }
+
+        .percentage {
+          font-size: 16px;
+          color: purple;
+        }
+      }
+    }
+  }
+
+}

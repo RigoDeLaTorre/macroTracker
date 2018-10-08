@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 174:
+/***/ 192:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,15 +16,19 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(33);
+var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _ColorPicker = __webpack_require__(194);
+var _reactRouterDom = __webpack_require__(63);
+
+var _ColorPicker = __webpack_require__(213);
 
 var _ColorPicker2 = _interopRequireDefault(_ColorPicker);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -40,46 +44,29 @@ var Navigation = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this));
 
-    _this.handleUser = function () {
-      // let currentWeight = parseFloat(this.weight.value);
-      var workoutOfTheDay = _this.workoutOfTheDay.value;
-      var username = _this.username.value;
-
-      _this.props.handleUser(workoutOfTheDay, username);
-    };
-
     _this.toggleNav = function () {
       _this.setState({
         nav: !_this.state.nav
       });
     };
 
-    _this.submit = function (e) {
-      if (e.key == 'Enter' || e.which == 13) {
-        _this.props.getApiData();
-      }
+    _this.handleChange = function (event) {
+      _this.props.handleWorkoutChange(event.target.value);
+      _this.setState(_defineProperty({}, event.target.name, event.target.value));
     };
 
     _this.state = {
       nav: false
+
     };
     return _this;
   }
-
-  //Gets the value inputted on the form whenever it is changed and passes that value to the parent index.js which updates the state.
-
-
   //Toggles the Navigation either on or off
-
-
-  // Submit button that triggers api call on Enter key.
 
 
   _createClass(Navigation, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         'nav',
         null,
@@ -88,26 +75,21 @@ var Navigation = function (_Component) {
           { className: 'nav-container' },
           _react2.default.createElement(
             'div',
-            { className: 'nav-button', onClick: this.toggleNav },
-            _react2.default.createElement('img', { src: './img/menu.svg' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Get Macros'
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'nav-button' },
+            { className: 'nav-buttons' },
             _react2.default.createElement(
               'a',
-              { href: '/instructions.html' },
-              _react2.default.createElement('img', { src: './img/settings.svg' }),
-              _react2.default.createElement(
-                'span',
-                null,
-                'Setup First !'
-              )
+              { onClick: this.toggleNav },
+              'Options'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/search', activeClassName: 'selected' },
+              'Search'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/setup', activeClassName: 'selected' },
+              'Setup'
             )
           )
         ),
@@ -116,28 +98,7 @@ var Navigation = function (_Component) {
           { className: this.state.nav == true ? 'nav-show' : 'nav-section' },
           _react2.default.createElement(
             'div',
-            { className: 'group-inputs userinfo' },
-            _react2.default.createElement(
-              'div',
-              { className: 'usergroup' },
-              _react2.default.createElement(
-                'label',
-                null,
-                'UserName:'
-              ),
-              _react2.default.createElement('input', { type: 'text', placeholder: 'enter username', name: 'weight', ref: function ref(input) {
-                  return _this2.username = input;
-                }, onChange: this.handleUser, onKeyPress: this.submit })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'submit-button', onClick: this.props.getApiData },
-              _react2.default.createElement('img', { src: './img/enter.svg', alt: 'get personal stats button' })
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'input-section' },
+            { className: 'colorContainer' },
             _react2.default.createElement(
               'div',
               { className: 'group-inputs' },
@@ -148,9 +109,12 @@ var Navigation = function (_Component) {
               ),
               _react2.default.createElement(
                 'select',
-                { value: this.props.globalState.workoutOfTheDay, ref: function ref(input) {
-                    return _this2.workoutOfTheDay = input;
-                  }, onChange: this.handleUser },
+                { value: this.props.globalState.workout, name: 'workout', onChange: this.handleChange },
+                _react2.default.createElement(
+                  'option',
+                  { value: 'nodisplay' },
+                  'Do Not Display'
+                ),
                 _react2.default.createElement(
                   'option',
                   { value: 'Upperbody Gym' },
@@ -185,18 +149,9 @@ var Navigation = function (_Component) {
                   'option',
                   { value: 'Rest' },
                   'Rest'
-                ),
-                _react2.default.createElement(
-                  'option',
-                  { value: 'nodisplay' },
-                  'Do Not Display'
                 )
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'colorContainer' },
+            ),
             _react2.default.createElement(_ColorPicker2.default, { handleChangeCompleteRow1: this.props.handleChangeCompleteRow1, handleChangeCompleteRow2: this.props.handleChangeCompleteRow2, globalState: this.props.globalState })
           )
         )
@@ -211,7 +166,7 @@ exports.default = Navigation;
 
 /***/ }),
 
-/***/ 175:
+/***/ 193:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -225,132 +180,103 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(63);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Results = function Results(_ref) {
-  var globalState = _ref.globalState;
+var Setup = function Setup() {
 
   return _react2.default.createElement(
-    "div",
-    { className: "results" },
+    'section',
+    { id: 'instructions' },
     _react2.default.createElement(
-      "div",
-      { className: "top-section" },
+      'div',
+      { className: 'group-steps' },
       _react2.default.createElement(
-        "div",
-        { className: "group-daily line-1" },
-        _react2.default.createElement(
-          "h3",
-          null,
-          globalState.date
-        )
+        'h1',
+        null,
+        'Step 1'
       ),
       _react2.default.createElement(
-        "div",
-        { className: "group-daily line-2", style: globalState.workoutOfTheDay == 'nodisplay' || globalState.workoutOfTheDay == null ? { display: 'none' } : { display: 'block' } },
-        _react2.default.createElement(
-          "h1",
-          { className: "workout" },
-          "Workout",
-          _react2.default.createElement(
-            "span",
-            { className: "workout-detail" },
-            ": ",
-            globalState.workoutOfTheDay
-          )
-        )
-      )
+        'p',
+        null,
+        'Login to your account on a desktop/laptop and click on Settings '
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: './img/step1.png' },
+        _react2.default.createElement('img', { src: './img/step1.png', alt: 'myfitnesspal settings' })
+      ),
+      _react2.default.createElement('hr', null)
     ),
     _react2.default.createElement(
-      "div",
-      { className: "stats" },
+      'div',
+      { className: 'group-steps' },
       _react2.default.createElement(
-        "h1",
-        { style: { background: globalState.row1 } },
-        "Calories:",
-        _react2.default.createElement(
-          "span",
-          { className: "category" },
-          " ",
-          globalState.calories
-        )
+        'h1',
+        null,
+        'Step 2'
       ),
       _react2.default.createElement(
-        "h1",
-        { style: { background: globalState.row2 } },
-        "Fat:",
-        _react2.default.createElement(
-          "span",
-          { className: "category" },
-          " ",
-          globalState.mystats.fat,
-          "g /"
-        ),
-        " ",
-        _react2.default.createElement(
-          "span",
-          { className: "percentage" },
-          " ",
-          globalState.fatPercentage,
-          " %"
-        )
+        'p',
+        null,
+        'Click on Diary Settings'
       ),
       _react2.default.createElement(
-        "h1",
-        { style: { background: globalState.row1 } },
-        "Protein:",
-        _react2.default.createElement(
-          "span",
-          { className: "category" },
-          " ",
-          globalState.mystats.protein,
-          "g /"
-        ),
-        " ",
-        _react2.default.createElement(
-          "span",
-          { className: "percentage" },
-          " ",
-          globalState.proteinPercentage,
-          " %"
-        )
+        'a',
+        { href: './img/step2.png' },
+        _react2.default.createElement('img', { src: './img/step2.png', alt: 'myfitnesspal settings' })
+      ),
+      _react2.default.createElement('hr', null)
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'group-steps' },
+      _react2.default.createElement(
+        'h1',
+        null,
+        'Step 3'
       ),
       _react2.default.createElement(
-        "h1",
-        { style: { background: globalState.row2 } },
-        "Net Carbs:",
-        _react2.default.createElement(
-          "span",
-          { className: "category" },
-          " ",
-          globalState.netCarbs,
-          "g / "
-        ),
-        " ",
-        _react2.default.createElement(
-          "span",
-          { className: "percentage" },
-          globalState.carbPercentage,
-          " %"
-        )
+        'p',
+        null,
+        'Copy the nutrients tracked exactly in the order as shown in the picture.'
       ),
       _react2.default.createElement(
-        "h1",
-        { style: { background: globalState.row1 } },
-        "Fiber:",
-        _react2.default.createElement(
-          "span",
-          { className: "category" },
-          " ",
-          globalState.mystats.fiber,
-          "g"
-        )
+        'p',
+        null,
+        'Scroll to the bottom under Diary Sharing and click on Public.'
+      ),
+      _react2.default.createElement(
+        'p',
+        null,
+        'Save Changes'
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: './img/step3.png' },
+        _react2.default.createElement('img', { src: './img/step3.png', alt: 'myfitnesspal settings' })
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: './img/step3b.png' },
+        _react2.default.createElement('img', { src: './img/step3b.png', alt: 'myfitnesspal settings' })
+      ),
+      _react2.default.createElement('hr', null)
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'link' },
+      _react2.default.createElement(
+        _reactRouterDom.NavLink,
+        { to: '/search', activeClassName: 'selected' },
+        'All Done, Let me Try !'
       )
     )
   );
 };
 
-exports.default = Results;
+exports.default = Setup;
 
 /***/ }),
 
@@ -370,11 +296,111 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(33);
+var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactColor = __webpack_require__(371);
+var _Results = __webpack_require__(214);
+
+var _Results2 = _interopRequireDefault(_Results);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserSearch = function (_Component) {
+  _inherits(UserSearch, _Component);
+
+  function UserSearch() {
+    _classCallCheck(this, UserSearch);
+
+    var _this = _possibleConstructorReturn(this, (UserSearch.__proto__ || Object.getPrototypeOf(UserSearch)).call(this));
+
+    _this.handleChange = function (event) {
+      _this.setState(_defineProperty({}, event.target.name, event.target.value));
+    };
+
+    _this.handleSubmit = function (e) {
+      if (e.key == 'Enter' || e.which == 13) {
+        _this.props.getApiData(_this.state.username);
+      }
+    };
+
+    _this.state = {
+      username: '',
+      workout: 'nodisplay'
+    };
+    return _this;
+  }
+
+  _createClass(UserSearch, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'section',
+        { id: 'usersearch' },
+        _react2.default.createElement(
+          'div',
+          { className: 'group' },
+          _react2.default.createElement(
+            'div',
+            { className: 'input-group' },
+            _react2.default.createElement(
+              'label',
+              null,
+              'UserName:'
+            ),
+            _react2.default.createElement('input', { type: 'text', placeholder: 'enter username', name: 'username', onChange: this.handleChange, onKeyPress: this.handleSubmit })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'submit-button', onClick: function onClick() {
+                return _this2.props.getApiData(_this2.state.username);
+              } },
+            _react2.default.createElement('img', { src: './img/enter.svg', alt: 'get personal stats button' })
+          )
+        ),
+        _react2.default.createElement(_Results2.default, { globalState: this.props.globalState })
+      );
+    }
+  }]);
+
+  return UserSearch;
+}(_react.Component);
+
+exports.default = UserSearch;
+
+/***/ }),
+
+/***/ 213:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(31);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactColor = __webpack_require__(393);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -505,7 +531,150 @@ exports.default = ColorPicker;
 
 /***/ }),
 
-/***/ 195:
+/***/ 214:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Results = function Results(_ref) {
+  var globalState = _ref.globalState;
+
+  return _react2.default.createElement(
+    "section",
+    { className: "results" },
+    _react2.default.createElement(
+      "div",
+      { className: "top-section" },
+      _react2.default.createElement(
+        "div",
+        { className: "group-daily line-1" },
+        _react2.default.createElement(
+          "h3",
+          null,
+          globalState.date
+        )
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "group-daily line-2", style: globalState.workout == 'nodisplay' || globalState.workout == null ? { display: 'none' } : { display: 'block' } },
+        _react2.default.createElement(
+          "h1",
+          { className: "workout" },
+          "Workout",
+          _react2.default.createElement(
+            "span",
+            { className: "workout-detail" },
+            ": ",
+            globalState.workout
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: "stats" },
+      _react2.default.createElement(
+        "h1",
+        { style: { background: globalState.row1 } },
+        "Calories:",
+        _react2.default.createElement(
+          "span",
+          { className: "category" },
+          " ",
+          globalState.calories
+        )
+      ),
+      _react2.default.createElement(
+        "h1",
+        { style: { background: globalState.row2 } },
+        "Fat:",
+        _react2.default.createElement(
+          "span",
+          { className: "category" },
+          " ",
+          globalState.mystats.fat,
+          "g /"
+        ),
+        " ",
+        _react2.default.createElement(
+          "span",
+          { className: "percentage" },
+          " ",
+          globalState.fatPercentage,
+          " %"
+        )
+      ),
+      _react2.default.createElement(
+        "h1",
+        { style: { background: globalState.row1 } },
+        "Protein:",
+        _react2.default.createElement(
+          "span",
+          { className: "category" },
+          " ",
+          globalState.mystats.protein,
+          "g /"
+        ),
+        " ",
+        _react2.default.createElement(
+          "span",
+          { className: "percentage" },
+          " ",
+          globalState.proteinPercentage,
+          " %"
+        )
+      ),
+      _react2.default.createElement(
+        "h1",
+        { style: { background: globalState.row2 } },
+        "Net Carbs:",
+        _react2.default.createElement(
+          "span",
+          { className: "category" },
+          " ",
+          globalState.netCarbs,
+          "g / "
+        ),
+        " ",
+        _react2.default.createElement(
+          "span",
+          { className: "percentage" },
+          globalState.carbPercentage,
+          " %"
+        )
+      ),
+      _react2.default.createElement(
+        "h1",
+        { style: { background: globalState.row1 } },
+        "Fiber:",
+        _react2.default.createElement(
+          "span",
+          { className: "category" },
+          " ",
+          globalState.mystats.fiber,
+          "g"
+        )
+      )
+    )
+  );
+};
+
+exports.default = Results;
+
+/***/ }),
+
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,21 +688,27 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(33);
+var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _axios = __webpack_require__(173);
+var _reactRouterDom = __webpack_require__(63);
+
+var _axios = __webpack_require__(191);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Nav = __webpack_require__(174);
+var _Nav = __webpack_require__(192);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
-var _Results = __webpack_require__(175);
+var _UserSearch = __webpack_require__(194);
 
-var _Results2 = _interopRequireDefault(_Results);
+var _UserSearch2 = _interopRequireDefault(_UserSearch);
+
+var _Setup = __webpack_require__(193);
+
+var _Setup2 = _interopRequireDefault(_Setup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -556,8 +731,8 @@ var Layout = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
-    _this.getApiData = function () {
-      var username = _this.state.username;
+    _this.getApiData = function (username) {
+
       _axios2.default.get('/scrape', {
         params: {
           username: username
@@ -569,21 +744,9 @@ var Layout = function (_Component) {
       }).catch(function (error) {
         console.log(error);
       });
-
-      _axios2.default.get('/weightInfo', {
-        params: {
-          username: username
-        }
-      }).then(function (response) {
-        _this.setState({
-          weightInfo: response.data
-        }, _this.getWeightStartingPoint);
-      }).catch(function (error) {
-        console.log(error);
-      });
     };
 
-    _this.handleChange = function (workoutOfTheDay, username) {
+    _this.handleChange = function () {
 
       //calculation to get net Carbs
       var netCarbs = parseInt(_this.state.mystats.carbs - _this.state.mystats.fiber);
@@ -607,11 +770,9 @@ var Layout = function (_Component) {
       });
     };
 
-    _this.handleUser = function (workoutOfTheDay, username) {
-
+    _this.handleWorkoutChange = function (workout) {
       _this.setState({
-        workoutOfTheDay: workoutOfTheDay,
-        username: username
+        workout: workout
       });
     };
 
@@ -640,17 +801,30 @@ var Layout = function (_Component) {
       date: '',
       row1: '#cbc7c7',
       row2: '',
-      username: ''
+      username: '',
+      workout: 'nodisplay'
 
     };
 
     return _this;
   }
 
-  // 2 api calls, get macros and get start weight and date
-
-
   _createClass(Layout, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var today = new Date();
+      var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      var date = month[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear();
+
+      this.setState({
+        date: date
+      });
+    }
+
+    // 2 api calls, get macros and get start weight and date
+
+  }, {
     key: 'getWeightStartingPoint',
 
     //Displays how many days into the diet as well as the Current Date
@@ -677,6 +851,8 @@ var Layout = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var popoverLeft = {
         position: 'absolute',
         zIndex: '2',
@@ -696,10 +872,34 @@ var Layout = function (_Component) {
         left: '0px'
       };
       return _react2.default.createElement(
-        'div',
-        { className: 'home' },
-        _react2.default.createElement(_Nav2.default, { getApiData: this.getApiData, hideInfo: this.hideInfo, handleUser: this.handleUser, handleChangeCompleteRow1: this.handleChangeCompleteRow1, handleChangeCompleteRow2: this.handleChangeCompleteRow2, globalState: this.state }),
-        _react2.default.createElement(_Results2.default, { globalState: this.state })
+        _reactRouterDom.BrowserRouter,
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'home' },
+          _react2.default.createElement(_Nav2.default, { hideInfo: this.hideInfo,
+            handleChangeCompleteRow1: this.handleChangeCompleteRow1,
+            handleChangeCompleteRow2: this.handleChangeCompleteRow2,
+            handleWorkoutChange: this.handleWorkoutChange,
+            globalState: this.state }),
+          _react2.default.createElement(_reactRouterDom.Route, {
+            path: '/search',
+            render: function render(props) {
+              return _react2.default.createElement(_UserSearch2.default, _extends({}, props, {
+                getApiData: _this2.getApiData,
+                handleUser: _this2.handleUser,
+                globalState: _this2.state }));
+            } }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/setup', component: _Setup2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, {
+            exact: true, path: '/',
+            render: function render(props) {
+              return _react2.default.createElement(_UserSearch2.default, _extends({}, props, {
+                getApiData: _this2.getApiData,
+                handleUser: _this2.handleUser,
+                globalState: _this2.state }));
+            } })
+        )
       );
     }
   }]);
@@ -713,4 +913,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), app);
 
 /***/ })
 
-},[195]);
+},[215]);

@@ -1,8 +1,10 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import axios from 'axios'
 import Navigation from './components/Nav.js'
-import Results from './components/Results.js'
+import UserSearch from './components/UserSearch.js'
+import Setup from './components/Setup.js'
 // import Instructions from './components/Instructions.js'
 
 
@@ -16,15 +18,30 @@ class Layout extends Component {
       date:'',
       row1:'#cbc7c7',
       row2:'',
-      username:''
+      username:'',
+      workout:'nodisplay'
 
     }
 
   }
 
+
+
+  componentWillMount(){
+    let today = new Date();
+const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+let date = month[today.getMonth()]+ ' ' + today.getDate()  +', ' +today.getFullYear();
+
+this.setState({
+  date,
+})
+  }
+
+
   // 2 api calls, get macros and get start weight and date
-getApiData = () =>{
-   let username=this.state.username
+getApiData = (username) =>{
+
     axios.get('/scrape', {
       params:{
         username
@@ -35,22 +52,6 @@ getApiData = () =>{
         mystats:response.data
       },this.handleChange)
     })
-
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    axios.get('/weightInfo', {
-      params:{
-        username
-      }
-    })
-    .then((response) => {
-      this.setState({
-        weightInfo:response.data
-      }, this.getWeightStartingPoint)
-    })
-
     .catch(function (error) {
       console.log(error);
     });
@@ -71,7 +72,7 @@ getWeightStartingPoint(){
 
 // Gets the values of the inputs for daily weight, yesterdays weight, and workout of the day
 
-handleChange =(workoutOfTheDay, username)=>{
+handleChange =()=>{
 
   //calculation to get net Carbs
   let netCarbs= parseInt(this.state.mystats.carbs-this.state.mystats.fiber);
@@ -95,12 +96,9 @@ handleChange =(workoutOfTheDay, username)=>{
 })
 }
 
-handleUser =(workoutOfTheDay, username)=>{
-
-
+handleWorkoutChange =(workout)=>{
   this.setState({
-  workoutOfTheDay,
-  username
+    workout:workout
 })
 }
 
@@ -150,10 +148,30 @@ hideInfo = (e) =>{
       left: '0px',
     }
     return (
+      <BrowserRouter>
+
       <div className='home'>
-        <Navigation getApiData={this.getApiData} hideInfo ={this.hideInfo} handleUser={this.handleUser} handleChangeCompleteRow1={this.handleChangeCompleteRow1} handleChangeCompleteRow2={this.handleChangeCompleteRow2}  globalState = {this.state}/>
-        <Results globalState = {this.state} />
+        <Navigation hideInfo ={this.hideInfo}
+          handleChangeCompleteRow1={this.handleChangeCompleteRow1}
+          handleChangeCompleteRow2={this.handleChangeCompleteRow2}
+          handleWorkoutChange={this.handleWorkoutChange}
+          globalState = {this.state}/>
+          <Route
+              path ='/search'
+              render ={(props) =><UserSearch {...props}
+              getApiData={this.getApiData}
+              handleUser={this.handleUser}
+              globalState={this.state}/>} />
+
+          <Route path="/setup" component={Setup}/>
+          <Route
+              exact path ='/'
+              render ={(props) =><UserSearch {...props}
+              getApiData={this.getApiData}
+              handleUser={this.handleUser}
+              globalState={this.state}/>} />
      </div>
+     </BrowserRouter>
     )
   }
 }
