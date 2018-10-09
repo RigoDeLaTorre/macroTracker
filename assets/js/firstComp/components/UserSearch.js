@@ -26,7 +26,7 @@ handleSubmit = (e) =>{
 render(){
   return(
     <section id="usersearch">
-    <div id="note" className ={this.props.globalState.note ? 'noteDisplay' : 'noteHide'}>Success !.</div>
+    <div id="note" className ={this.props.globalState.note ? 'noteDisplay' : 'noteHide'}>Success !</div>
           <div className="group">
             <div className="input-group">
               <label>UserName:</label>

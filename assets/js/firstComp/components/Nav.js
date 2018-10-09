@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import ColorPicker from './ColorPicker.js'
 
 
+
 export default class Navigation extends Component {
   constructor() {
     super()
@@ -30,6 +31,7 @@ export default class Navigation extends Component {
     return (<nav>
       <div className="nav-container">
         <div className="nav-buttons">
+            <NavLink to="/" activeClassName="selected">Home</NavLink>
             <a onClick={this.toggleNav}>Options</a>
             <NavLink to="/search" activeClassName="selected">Search</NavLink>
             <NavLink to="/setup" activeClassName="selected">Setup</NavLink>
@@ -52,7 +54,7 @@ export default class Navigation extends Component {
             <option value="Rest">Rest</option>
           </select>
         </div>
-          <ColorPicker handleChangeCompleteRow1={this.props.handleChangeCompleteRow1} handleChangeCompleteRow2={this.props.handleChangeCompleteRow2} globalState={this.props.globalState}/>
+      {/*    <ColorPicker handleChangeCompleteRow1={this.props.handleChangeCompleteRow1} handleChangeCompleteRow2={this.props.handleChangeCompleteRow2} globalState={this.props.globalState}/> */}
         </div>
       </section>
     </nav>)

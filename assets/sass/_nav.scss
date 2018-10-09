@@ -1,5 +1,7 @@
 nav {
+  position:relative;
      background:$green;
+         border-radius: 5px 5px 0 0;
 
  .nav-container{
  padding:25px;
@@ -13,22 +15,33 @@ nav {
        color:white;
        cursor:pointer;
        letter-spacing: 1px;
+
        &:hover{
          font-weight:500;
        }
      }
    }
+
  }
   .nav-section {
-    display: none;
+      width: 100%;
+    display:block;
+        transition: all .2s ease-in-out;
+        visibility:hidden;
+        opacity:0;
+        position:absolute;
+
+
   }
 
   .nav-show {
-    display: block;
+
       background: #3a3e3c;
       width: 100%;
       text-align: center;
       padding: 1rem 0;
+        transition: all .5s ease-in-out;
+      opacity:1;
       .colorContainer{
         .group-inputs{
           label{

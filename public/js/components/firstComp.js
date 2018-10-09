@@ -10,6 +10,64 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(44);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Home = function Home() {
+  return _react2.default.createElement(
+    'section',
+    { id: 'home-page' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Welcome :) '
+    ),
+    _react2.default.createElement(
+      'h2',
+      null,
+      'I got a lot of request for this, and I decided to build a web-app to save me some time from getting the data from MyFitnessPal everyday.'
+    ),
+    _react2.default.createElement(
+      'h2',
+      null,
+      'If this is your first time, click  ',
+      _react2.default.createElement(
+        _reactRouterDom.NavLink,
+        { to: '/setup', activeClassName: 'selected' },
+        'Here'
+      ),
+      ' or the Setup Link above. ',
+      _react2.default.createElement('br', null),
+      'After your done with that, click ',
+      _react2.default.createElement(
+        _reactRouterDom.NavLink,
+        { to: '/search', activeClassName: 'selected' },
+        'Here'
+      ),
+      ' or the Search button above'
+    )
+  );
+};
+
+exports.default = Home;
+
+/***/ }),
+
+/***/ 193:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(1);
@@ -20,9 +78,9 @@ var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(63);
+var _reactRouterDom = __webpack_require__(44);
 
-var _ColorPicker = __webpack_require__(213);
+var _ColorPicker = __webpack_require__(214);
 
 var _ColorPicker2 = _interopRequireDefault(_ColorPicker);
 
@@ -76,6 +134,11 @@ var Navigation = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'nav-buttons' },
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/', activeClassName: 'selected' },
+              'Home'
+            ),
             _react2.default.createElement(
               'a',
               { onClick: this.toggleNav },
@@ -151,8 +214,7 @@ var Navigation = function (_Component) {
                   'Rest'
                 )
               )
-            ),
-            _react2.default.createElement(_ColorPicker2.default, { handleChangeCompleteRow1: this.props.handleChangeCompleteRow1, handleChangeCompleteRow2: this.props.handleChangeCompleteRow2, globalState: this.props.globalState })
+            )
           )
         )
       );
@@ -166,7 +228,7 @@ exports.default = Navigation;
 
 /***/ }),
 
-/***/ 193:
+/***/ 194:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,7 +242,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(63);
+var _reactRouterDom = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -280,7 +342,7 @@ exports.default = Setup;
 
 /***/ }),
 
-/***/ 194:
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -300,7 +362,7 @@ var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Results = __webpack_require__(214);
+var _Results = __webpack_require__(215);
 
 var _Results2 = _interopRequireDefault(_Results);
 
@@ -351,7 +413,7 @@ var UserSearch = function (_Component) {
         _react2.default.createElement(
           'div',
           { id: 'note', className: this.props.globalState.note ? 'noteDisplay' : 'noteHide' },
-          'Success !.'
+          'Success !'
         ),
         _react2.default.createElement(
           'div',
@@ -388,7 +450,7 @@ exports.default = UserSearch;
 
 /***/ }),
 
-/***/ 213:
+/***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -408,7 +470,7 @@ var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactColor = __webpack_require__(393);
+var _reactColor = __webpack_require__(394);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -539,7 +601,7 @@ exports.default = ColorPicker;
 
 /***/ }),
 
-/***/ 214:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,7 +744,7 @@ exports.default = Results;
 
 /***/ }),
 
-/***/ 215:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -700,23 +762,27 @@ var _reactDom = __webpack_require__(31);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(63);
+var _reactRouterDom = __webpack_require__(44);
 
 var _axios = __webpack_require__(191);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Nav = __webpack_require__(192);
+var _Nav = __webpack_require__(193);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
-var _UserSearch = __webpack_require__(194);
+var _UserSearch = __webpack_require__(195);
 
 var _UserSearch2 = _interopRequireDefault(_UserSearch);
 
-var _Setup = __webpack_require__(193);
+var _Setup = __webpack_require__(194);
 
 var _Setup2 = _interopRequireDefault(_Setup);
+
+var _Home = __webpack_require__(192);
+
+var _Home2 = _interopRequireDefault(_Home);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -906,14 +972,7 @@ var Layout = function (_Component) {
                 globalState: _this2.state }));
             } }),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/setup', component: _Setup2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, {
-            exact: true, path: '/',
-            render: function render(props) {
-              return _react2.default.createElement(_UserSearch2.default, _extends({}, props, {
-                getApiData: _this2.getApiData,
-                handleUser: _this2.handleUser,
-                globalState: _this2.state }));
-            } })
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default })
         )
       );
     }
@@ -928,4 +987,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), app);
 
 /***/ })
 
-},[215]);
+},[216]);

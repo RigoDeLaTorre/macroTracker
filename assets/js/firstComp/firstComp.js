@@ -5,6 +5,7 @@ import axios from 'axios'
 import Navigation from './components/Nav.js'
 import UserSearch from './components/UserSearch.js'
 import Setup from './components/Setup.js'
+import Home from './components/Home.js'
 // import Instructions from './components/Instructions.js'
 
 
@@ -25,8 +26,6 @@ class Layout extends Component {
     }
 
   }
-
-
 
   componentWillMount(){
     let today = new Date();
@@ -171,12 +170,7 @@ hideInfo = (e) =>{
               globalState={this.state}/>} />
 
           <Route path="/setup" component={Setup}/>
-          <Route
-              exact path ='/'
-              render ={(props) =><UserSearch {...props}
-              getApiData={this.getApiData}
-              handleUser={this.handleUser}
-              globalState={this.state}/>} />
+          <Route exact path="/" component={Home}/>
      </div>
      </BrowserRouter>
     )
