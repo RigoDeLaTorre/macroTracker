@@ -31,10 +31,24 @@ export default class Navigation extends Component {
     return (<nav>
       <div className="nav-container">
         <div className="nav-buttons">
-            <NavLink to="/" activeClassName="selected">Home</NavLink>
-            <a onClick={this.toggleNav}>Options</a>
-            <NavLink to="/search" activeClassName="selected">Search</NavLink>
-            <NavLink to="/setup" activeClassName="selected">Setup</NavLink>
+
+            <NavLink to="/" activeClassName="selected" className="nav-group">
+            <img src ="/img/home.svg" />
+            <span>Home</span>
+            </NavLink>
+            <div className ="nav-group" onClick={this.toggleNav}>
+            <img src ="/img/menu.svg" />
+            <a>Options</a>
+            </div>
+
+            <NavLink to="/search" activeClassName="selected" className="nav-group">
+            <img src ="/img/find.svg" />
+            <span>Search</span>
+            </NavLink>
+            <NavLink to="/setup" activeClassName="selected" className="nav-group">
+            <img src ="/img/tools.svg" />
+            <span>Setup</span>
+            </NavLink>
         </div>
       </div>
       <section className={this.state.nav == true

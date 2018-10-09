@@ -136,23 +136,43 @@ var Navigation = function (_Component) {
             { className: 'nav-buttons' },
             _react2.default.createElement(
               _reactRouterDom.NavLink,
-              { to: '/', activeClassName: 'selected' },
-              'Home'
+              { to: '/', activeClassName: 'selected', className: 'nav-group' },
+              _react2.default.createElement('img', { src: '/img/home.svg' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                'Home'
+              )
             ),
             _react2.default.createElement(
-              'a',
-              { onClick: this.toggleNav },
-              'Options'
+              'div',
+              { className: 'nav-group', onClick: this.toggleNav },
+              _react2.default.createElement('img', { src: '/img/menu.svg' }),
+              _react2.default.createElement(
+                'a',
+                null,
+                'Options'
+              )
             ),
             _react2.default.createElement(
               _reactRouterDom.NavLink,
-              { to: '/search', activeClassName: 'selected' },
-              'Search'
+              { to: '/search', activeClassName: 'selected', className: 'nav-group' },
+              _react2.default.createElement('img', { src: '/img/find.svg' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                'Search'
+              )
             ),
             _react2.default.createElement(
               _reactRouterDom.NavLink,
-              { to: '/setup', activeClassName: 'selected' },
-              'Setup'
+              { to: '/setup', activeClassName: 'selected', className: 'nav-group' },
+              _react2.default.createElement('img', { src: '/img/tools.svg' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                'Setup'
+              )
             )
           )
         ),
