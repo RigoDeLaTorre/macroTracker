@@ -32,6 +32,7 @@ app.get('/scrape', function(req, res) {
             json.fiber = parseFloat(fiber);
         })
     }
+    
     res.send(json);
         }) ;
   })

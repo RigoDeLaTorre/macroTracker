@@ -19,16 +19,18 @@ export default class UserSearch extends Component {
 
 handleSubmit = (e) =>{
   if(e.key == 'Enter' || e.which==13){
+    this.username.blur()
     this.props.getApiData(this.state.username)
   }
 }
 render(){
   return(
     <section id="usersearch">
+    <div id="note" className ={this.props.globalState.note ? 'noteDisplay' : 'noteHide'}>Success !.</div>
           <div className="group">
             <div className="input-group">
               <label>UserName:</label>
-              <input type="text" placeholder="enter username" name="username" onChange={this.handleChange} onKeyPress={this.handleSubmit}/>
+              <input type="text" placeholder="enter username" name="username"  id="username" ref={input =>this.username=input} onChange={this.handleChange} onKeyPress={this.handleSubmit}/>
             </div>
             <div className="submit-button" onClick={()=>this.props.getApiData(this.state.username)}><img src ="./img/enter.svg" alt="get personal stats button" /></div>
           </div>

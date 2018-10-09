@@ -328,6 +328,7 @@ var UserSearch = function (_Component) {
 
     _this.handleSubmit = function (e) {
       if (e.key == 'Enter' || e.which == 13) {
+        _this.username.blur();
         _this.props.getApiData(_this.state.username);
       }
     };
@@ -349,6 +350,11 @@ var UserSearch = function (_Component) {
         { id: 'usersearch' },
         _react2.default.createElement(
           'div',
+          { id: 'note', className: this.props.globalState.note ? 'noteDisplay' : 'noteHide' },
+          'Success !.'
+        ),
+        _react2.default.createElement(
+          'div',
           { className: 'group' },
           _react2.default.createElement(
             'div',
@@ -358,7 +364,9 @@ var UserSearch = function (_Component) {
               null,
               'UserName:'
             ),
-            _react2.default.createElement('input', { type: 'text', placeholder: 'enter username', name: 'username', onChange: this.handleChange, onKeyPress: this.handleSubmit })
+            _react2.default.createElement('input', { type: 'text', placeholder: 'enter username', name: 'username', id: 'username', ref: function ref(input) {
+                return _this2.username = input;
+              }, onChange: this.handleChange, onKeyPress: this.handleSubmit })
           ),
           _react2.default.createElement(
             'div',
@@ -738,9 +746,11 @@ var Layout = function (_Component) {
           username: username
         }
       }).then(function (response) {
-        _this.setState({
-          mystats: response.data
-        }, _this.handleChange);
+        if (response.data.calories !== null && response.data.calories !== "") {
+          _this.setState({
+            mystats: response.data
+          }, _this.handleChange);
+        }
       }).catch(function (error) {
         console.log(error);
       });
@@ -766,8 +776,12 @@ var Layout = function (_Component) {
         calories: calories,
         fatPercentage: fatPercentage,
         proteinPercentage: proteinPercentage,
-        carbPercentage: carbPercentage
+        carbPercentage: carbPercentage,
+        note: true
       });
+      setTimeout(function () {
+        _this.setState({ note: false });
+      }, 2000);
     };
 
     _this.handleWorkoutChange = function (workout) {
@@ -802,7 +816,8 @@ var Layout = function (_Component) {
       row1: '#cbc7c7',
       row2: '',
       username: '',
-      workout: 'nodisplay'
+      workout: 'nodisplay',
+      note: false
 
     };
 

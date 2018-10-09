@@ -19,7 +19,8 @@ class Layout extends Component {
       row1:'#cbc7c7',
       row2:'',
       username:'',
-      workout:'nodisplay'
+      workout:'nodisplay',
+      note:false
 
     }
 
@@ -48,11 +49,12 @@ getApiData = (username) =>{
       }
     })
     .then((response) => {
-      this.setState({
-        mystats:response.data
-      },this.handleChange)
-    })
-    .catch(function (error) {
+      if(response.data.calories !== null && response.data.calories !== ""){
+        this.setState({
+          mystats:response.data
+        },this.handleChange)
+      }
+    }).catch(function (error) {
       console.log(error);
     });
 
@@ -93,8 +95,13 @@ handleChange =()=>{
   fatPercentage,
   proteinPercentage,
   carbPercentage,
+  note:true
 })
+setTimeout(() => {this.setState({note:false})
+}, 2000)
+
 }
+
 
 handleWorkoutChange =(workout)=>{
   this.setState({
