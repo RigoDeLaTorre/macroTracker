@@ -10,8 +10,6 @@ export default class Navigation extends Component {
     super()
     this.state = {
       nav: false,
-
-
     }
   }
 //Toggles the Navigation either on or off
@@ -37,10 +35,9 @@ export default class Navigation extends Component {
             <span>Home</span>
             </NavLink>
             <div className ="nav-group" onClick={this.toggleNav}>
-            <img src ="/img/menu.svg" />
+            <img src ="/img/menu.svg" className={this.state.nav ? 'menu-active' : 'menu-not-active'}/>
             <a>Options</a>
             </div>
-
             <NavLink to="/search" activeClassName="selected" className="nav-group">
             <img src ="/img/find.svg" />
             <span>Search</span>
@@ -67,6 +64,10 @@ export default class Navigation extends Component {
             <option value="HIIT">HIIT</option>
             <option value="Rest">Rest</option>
           </select>
+        </div>
+        <div className="group-inputs">
+          <label>Designs: </label>
+          <NavLink to="/designs" activeClassName="selected" className="nav-group">Click Here for other Designs</NavLink>
         </div>
       {/*    <ColorPicker handleChangeCompleteRow1={this.props.handleChangeCompleteRow1} handleChangeCompleteRow2={this.props.handleChangeCompleteRow2} globalState={this.props.globalState}/> */}
         </div>

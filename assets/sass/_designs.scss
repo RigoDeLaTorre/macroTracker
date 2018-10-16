@@ -1,0 +1,37 @@
+#designs{
+  h1{
+    text-align: center;
+margin: 2rem 0 1rem 0;
+font-size: 1.7rem;
+font-weight: 700;
+  }
+  h2{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom:2rem;
+  }
+a{
+  text-decoration: none;
+  color:black;
+  font-size:.7rem;
+
+}
+h3{
+  padding:3px;
+}
+.design-container{
+  display:flex;
+  flex-flow:row wrap;
+  justify-content: center;
+}
+  .design-group{
+    margin:5px;
+    border-radius: 5px;
+box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
+    &:hover{
+box-shadow: 0px 2px 28px 0px rgb(49, 110, 74);
+    }
+
+  }
+}

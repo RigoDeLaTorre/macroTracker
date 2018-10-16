@@ -1,5 +1,5 @@
-var express = require('express');
 const path = require('path');
+var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
 
@@ -32,7 +32,7 @@ app.get('/scrape', function(req, res) {
             json.fiber = parseFloat(fiber);
         })
     }
-    
+
     res.send(json);
         }) ;
   })

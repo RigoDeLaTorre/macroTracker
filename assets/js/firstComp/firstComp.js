@@ -6,6 +6,8 @@ import Navigation from './components/Nav.js'
 import UserSearch from './components/UserSearch.js'
 import Setup from './components/Setup.js'
 import Home from './components/Home.js'
+import designData from './components/designData.js'
+import Designs from './components/Designs.js'
 // import Instructions from './components/Instructions.js'
 
 
@@ -17,12 +19,13 @@ class Layout extends Component {
     this.state = {
       mystats:'',
       date:'',
+      designs:designData,
       row1:'#cbc7c7',
       row2:'',
+      color:'black',
       username:'',
       workout:'nodisplay',
       note:false
-
     }
 
   }
@@ -132,6 +135,14 @@ hideInfo = (e) =>{
   }))
 }
 
+setDesign =(item)=>{
+  this.setState({
+    row1:item.row1,
+    row2:item.row2,
+    color:item.color
+  })
+}
+
 
 
   render () {
@@ -170,6 +181,11 @@ hideInfo = (e) =>{
               globalState={this.state}/>} />
 
           <Route path="/setup" component={Setup}/>
+          <Route
+              path ='/designs'
+              render ={(props) =><Designs {...props}
+              setDesign={this.setDesign}
+              globalState={this.state}/>} />
           <Route exact path="/" component={Home}/>
      </div>
      </BrowserRouter>
